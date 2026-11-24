@@ -17,24 +17,22 @@ Monorepo layout (ADR 11, updated by ADR 12):
 | `docs/adr/` | Hub ADRs from 12 on |
 | `openspec/` | Changes and capability specs |
 
-Commands (run from the repo root):
+Commands (run from the repo root; see `README.md`):
 
-- `npm install`: install all workspaces and generate the API types
-- `npm run dev`: start the Electron app, which starts the backend
-- `npm test`: unit and contract tests
-- `npm run test:e2e`: Electron smoke test
-- `npm run lint`: ESLint and Prettier check
-- `npm run build`: build all workspaces
-- `npm run typecheck -w <workspace>`: type-check one workspace
+- `npm run setup`: first-time install (dependencies + Electron binary)
+- `npm run dev`: run the app with hot reload
+- `npm start`: build and run the production build
+- `npm run check`: lint + typecheck + unit tests + e2e. Run before saying work is done
 
-If `npm run dev` fails because the Electron binary is missing, run
-`node node_modules/electron/install.js`.
+Single steps also exist: `npm run lint`, `npm run typecheck`, `npm test`,
+`npm run test:e2e`, `npm run build`.
 
-Architecture and decisions live in the docs repo — read them before exploring a change:
+Read before exploring a change:
 
-- `../tagspot-ai-platform-docs/AI-Hub/docs/architecture.md`
-- `../tagspot-ai-platform-docs/AI-Hub/docs/adr/` (ADRs 1–11)
-- `../tagspot-ai-platform-docs/AI-Hub/docs/specs/` — only specs that cross products
+- `docs/architecture.md`: the hub's architecture (evolves with every change)
+- `docs/adr/`: hub ADRs from 12 on
+- `../tagspot-ai-platform-docs/AI-Hub/docs/adr/` (ADRs 1–11, until moved here)
+- `../tagspot-ai-platform-docs/AI-Hub/docs/specs/`: only specs that cross products
 
 Key rules from the architecture:
 
@@ -142,7 +140,10 @@ proposal can reference it.
 - Run `openspec-sync-specs` to merge the change's delta specs into `openspec/specs/`.
 - If the change affects other products (Marketplace, Forge), update
   `AI-Hub/docs/specs/` in the docs repo too.
-- If an architectural decision changed, add or update the ADR and `architecture.md`.
+- If an architectural decision changed, add or update the ADR in `docs/adr/`.
+- If the change alters the architecture, update `docs/architecture.md`: edit the
+  diagrams and add a row to its change log.
+- If the build or run commands changed, update `README.md`.
 
 ### 7. Archive
 

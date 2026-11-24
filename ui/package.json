@@ -9,6 +9,7 @@
     "dev": "electron-vite dev",
     "prebuild": "npm run build -w @tagspot/server",
     "build": "electron-vite build",
+    "start": "electron-vite preview --skipBuild",
     "pretest:e2e": "npm run build",
     "test:e2e": "playwright test",
     "typecheck": "tsc -p tsconfig.json"

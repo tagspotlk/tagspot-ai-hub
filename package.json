@@ -11,13 +11,17 @@
     "ui"
   ],
   "scripts": {
+    "setup": "npm install && node node_modules/electron/install.js",
+    "dev": "npm run dev -w @tagspot/ui",
+    "start": "npm run build && npm run start -w @tagspot/ui",
+    "check": "npm run lint && npm run typecheck && npm test && npm run test:e2e",
     "build": "npm run build --workspaces --if-present",
     "test": "vitest run",
     "test:e2e": "npm run test:e2e -w @tagspot/ui",
+    "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
-    "postinstall": "npm run generate -w @tagspot/api",
-    "dev": "npm run dev -w @tagspot/ui"
+    "postinstall": "npm run generate -w @tagspot/api"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
