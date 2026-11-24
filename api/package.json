@@ -1,0 +1,21 @@
+{
+  "name": "@tagspot/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contract-testing": "./src/contractTesting.ts"
+  },
+  "scripts": {
+    "generate": "openapi-typescript openapi.yaml -o src/generated/schema.d.ts",
+    "build": "npm run generate",
+    "pretypecheck": "npm run generate",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^13.1.0",
+    "ajv": "^8.20.0",
+    "openapi-typescript": "^7.13.0"
+  }
+}

@@ -1,0 +1,9 @@
+openspec/
+CLAUDE.md
+package-lock.json
+node_modules
+dist
+out
+api/src/generated
+test-results
+playwright-report
