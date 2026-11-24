@@ -2,18 +2,33 @@
 
 ## Project
 
-Tagspot AI Hub: a local-first desktop app (Electron + TypeScript UI, Spring Boot server
-with bundled JRE, SQLite + sqlite-vec, MCP gateway with PATs in Windows Credential Manager).
+Tagspot AI Hub: a local-first desktop app (Electron + TypeScript UI, Node/TypeScript
+backend in a separate process with no JRE for the hub, SQLite + sqlite-vec, MCP gateway
+with PATs in Windows Credential Manager).
 
-Monorepo layout (ADR 11):
+Monorepo layout (ADR 11, updated by ADR 12):
 
 | Path | Holds |
 |---|---|
-| `ui/` | Electron app and the client generated from OpenAPI |
-| `server/` | Spring Boot modules |
-| `api/openapi.yaml` | The UI ↔ server contract |
-| `packaging/` | jlink and installer |
+| `ui/` | Electron (electron-vite) + React app; starts the backend and proxies API calls |
+| `server/` | Node/TypeScript Fastify backend, started by Electron main |
+| `api/` | `openapi.yaml` (the UI ↔ server contract) and the generated types |
+| `packaging/` | Installer and signing (later change); the hub needs no JRE |
+| `docs/adr/` | Hub ADRs from 12 on |
 | `openspec/` | Changes and capability specs |
+
+Commands (run from the repo root):
+
+- `npm install`: install all workspaces and generate the API types
+- `npm run dev`: start the Electron app, which starts the backend
+- `npm test`: unit and contract tests
+- `npm run test:e2e`: Electron smoke test
+- `npm run lint`: ESLint and Prettier check
+- `npm run build`: build all workspaces
+- `npm run typecheck -w <workspace>`: type-check one workspace
+
+If `npm run dev` fails because the Electron binary is missing, run
+`node node_modules/electron/install.js`.
 
 Architecture and decisions live in the docs repo — read them before exploring a change:
 
